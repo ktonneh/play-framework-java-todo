@@ -1,1 +1,1 @@
-web: run sbt play --http.port=$PORT $PLAY_OPTS
+web: bin/todo -Dhttp.port=9000 ${JAVA_OPTS} -DapplyEvolutions.default=true
