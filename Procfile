@@ -1,1 +1,1 @@
-web: bin/todo -Dhttp.port=9000 ${JAVA_OPTS} -DapplyEvolutions.default=true
+web: bin/todo -Dhttp.port=${PORT} ${JAVA_OPTS} -DapplyEvolutions.default=true
