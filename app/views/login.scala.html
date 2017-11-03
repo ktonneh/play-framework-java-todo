@@ -1,0 +1,108 @@
+@(title: String)
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("css/bootstrap.min.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        
+    </head>
+    <body>
+	<div class="container">
+<!--This is just a comment -->
+		<h2>Login</h2>
+		<form name="frmLogin" id="frmLogin" method="POST" class="form">
+		
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="username" class="label label-default">Username: </label>
+					<input type="text" name="username" id="username" class="form-control" />
+				</div>
+			</div>
+		</div>
+			
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="password" class="label label-default">Password: </label>
+					<input type="password" name="password" id="password" class="form-control" />
+				</div>	
+			</div>
+		</div>		
+		
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="desc" class="label label-default">Desc: </label>
+					<textarea class="form-control" name="desc" id="desc" cols="10" rows="5"></textarea>
+				</div>	
+			</div>
+		</div>
+		
+		
+		
+		
+		<button id="btnLogin" type="submit" class="btn btn-primary">Login </button>
+		<a href="#">Forgot password</a> Or <a href="register.html">Register here </a>
+		</form>
+	</div>	
+	
+	<script src="@routes.Assets.at("js/jquery-1.9.0.min.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.at("js/bootstrap.min.js")" type="text/javascript"></script>
+	<script>
+	$(function() {
+			console.log('Hellow good people');
+		//alert('This is javascript alert');
+		var a = 10;
+		var b = 40;
+		
+		console.log(a+b);
+		
+		//alert(add(10,40));
+		
+		
+		function add(a,b){
+			return a+b;
+		}
+		
+		
+		$('#btnLogin').on('click',function(){
+			alert(add(230,400));
+			var username = $('#username').val()
+			var password = $('#password').val()
+			
+			if(username === ''){
+				alert('Enter username')
+				return false;
+			}
+			//alert(username + ' '+password)
+
+			var form = $('form[name=frmLogin]');
+			$.ajax({
+			    type: "POST",
+			    url: '/login',
+			    dataType:'json',
+			    data: $('form[name=frmLogin]').serialize(),
+			    success: function(response){
+			        if (response.code!=200){
+			            console.log("ERROR"+response.message);
+			        } else {
+			            console.log(response);
+			            $('form').trigger("reset");
+			            console.log("SUCCESS"+response.message);
+			        }
+			    },
+			    error: function() {
+			        console.log("ERROR"+"Server Error occurred, please try again later!!","error");
+			    }
+			});
+
+		});
+	
+	});
+
+</script>
+	
+    </body>
+</html>
